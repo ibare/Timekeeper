@@ -18,18 +18,18 @@ function SectionList({ sectionList }) {
         <thead>
           <tr>
             <th className="center" colSpan="2" width="150">
-              Time
+              시간
             </th>
             <th className="underline" rowSpan="2">
-              Item
+              공부
             </th>
             <th className="center underline" rowSpan="2" width="120">
-              Behavior
+              
             </th>
           </tr>
           <tr className="underline">
-            <th className="center">Est.</th>
-            <th className="center">Act.</th>
+            <th className="center">계획</th>
+            <th className="center">공부 시간</th>
           </tr>
         </thead>
         <tbody>

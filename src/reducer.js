@@ -63,6 +63,20 @@ export default (state, action) => {
           })
         ]
       };
+    case Actions.REMOVE_DISCUSS:
+      return {
+        ...state,
+        sectionList: [
+          ...state.sectionList.map(section => {
+            
+            if (section.id === action.payload.id) {
+              section.act = 0;
+            }
+
+            return section;
+          })
+        ]
+      };
     case Actions.TICK_NEXT_TIME:
       return {
         ...state,

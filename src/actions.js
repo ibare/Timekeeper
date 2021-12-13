@@ -16,3 +16,5 @@ export const tickNextTime = () => actionBuilder(Actions.TICK_NEXT_TIME);
 export const startDiscuss = id => actionBuilder(Actions.START_DISCUSS, { id });
 
 export const stopDiscuss = id => actionBuilder(Actions.STOP_DISCUSS, { id });
+
+export const removeDiscuss = id => actionBuilder(Actions.REMOVE_DISCUSS, { id });

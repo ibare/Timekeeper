@@ -1,8 +1,9 @@
 import React from "react";
 import { Stack, Text, Button, Meter } from "grommet";
+import { Play, Pause, Trash, Refresh } from 'grommet-icons';
 import { timeFormatter } from "./utils";
 import { connect } from "react-redux";
-import { removeSection, startDiscuss, stopDiscuss } from "./actions";
+import { removeDiscuss, removeSection, startDiscuss, stopDiscuss } from "./actions";
 
 function Section({
   id,
@@ -11,6 +12,7 @@ function Section({
   title,
   isDiscuss,
   removeSection,
+  removeDiscuss,
   startDiscuss,
   stopDiscuss
 }) {
@@ -62,20 +64,26 @@ function Section({
           plain
           size="small"
           color="#ccc"
-          style={
-            isDiscuss
-              ? { color: "black", animation: "blink 1s linear infinite" }
-              : null
-          }
+          icon={ isDiscuss? <Pause />: <Play />}
           onClick={() => (isDiscuss ? stopDiscuss(id) : startDiscuss(id))}
-          label="Discuss"
         />
         <Button
           plain
           size="small"
           style={{ marginLeft: 14 }}
-          label="···"
-          onClick={() => removeSection(id)}
+          icon={<Refresh />}
+          onClick={() => {
+            if (window.confirm('공부한 시간을 지울까요?')) removeDiscuss(id);
+          }}
+        />
+        <Button
+          plain
+          size="small"
+          style={{ marginLeft: 14 }}
+          icon={<Trash />}
+          onClick={() => {
+            if (window.confirm('정말로 지울까요?')) removeSection(id);             
+          }}
         />
       </td>
     </tr>
@@ -86,7 +94,8 @@ export default connect(
   () => ({}),
   dispatch => ({
     removeSection: id => dispatch(removeSection(id)),
+    removeDiscuss: id => dispatch(removeDiscuss(id)),
     startDiscuss: id => dispatch(startDiscuss(id)),
-    stopDiscuss: id => dispatch(stopDiscuss(id))
+    stopDiscuss: id => dispatch(stopDiscuss(id)),
   })
 )(Section);
