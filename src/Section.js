@@ -1,9 +1,9 @@
 import React from "react";
-import { Stack, Text, Button, Meter } from "grommet";
+import { Stack, Text, Button, Meter, CheckBox } from "grommet";
 import { Play, Pause, Trash, Refresh } from 'grommet-icons';
 import { timeFormatter } from "./utils";
 import { connect } from "react-redux";
-import { removeDiscuss, removeSection, startDiscuss, stopDiscuss } from "./actions";
+import { removeDiscuss, removeSection, startDiscuss, stopDiscuss, done, notYet } from "./actions";
 
 function Section({
   id,
@@ -11,10 +11,13 @@ function Section({
   act,
   title,
   isDiscuss,
+  isDone,
   removeSection,
   removeDiscuss,
   startDiscuss,
-  stopDiscuss
+  stopDiscuss,
+  done,
+  notYet
 }) {
   const initTime = est * 60;
   const remainingTime = () => initTime - act;
@@ -31,12 +34,16 @@ function Section({
           {timeFormatter(act)}
         </Text>
       </td>
-      <td style={{ padding: 0 }}>
+      <td className="center" style={{ paddingLeft: 26 }}>
+        <CheckBox checked={isDone} onChange={() => isDone ? notYet(id) : done(id)} />
+      </td>
+      <td style={{ padding: 0 }}>        
         <Stack>
           <Text
             size="large"
             style={{
               margin: 12,
+              paddingLeft: 20,
               overflow: "hidden",
               textOverflow: "ellipsis",
               whiteSpace: "nowrap"
@@ -97,5 +104,7 @@ export default connect(
     removeDiscuss: id => dispatch(removeDiscuss(id)),
     startDiscuss: id => dispatch(startDiscuss(id)),
     stopDiscuss: id => dispatch(stopDiscuss(id)),
+    done: id => dispatch(done(id)),
+    notYet: id => dispatch(notYet(id)),
   })
 )(Section);

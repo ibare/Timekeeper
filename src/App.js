@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { addSection } from "./actions";
+import { addSection, loadToday, loadPrevDay, loadNextDay } from "./actions";
 import { connect } from "react-redux";
-import { Header, Text, Box, Button, TextInput, Select } from "grommet";
-import { Add } from "grommet-icons";
+import { Header, Text, Box, Button, TextInput, Select, Anchor } from "grommet";
+import { Add, FormPrevious, FormNext, Disc } from "grommet-icons";
 import SectionList from "./SectionList";
 
 const Footer = styled(Box)`
@@ -13,7 +13,7 @@ const Footer = styled(Box)`
 
 const DefaultEst = 5;
 
-function App({ addSection }) {
+function App({ todayCaption, addSection, loadToday, loadPrevDay, loadNextDay }) {
   let [title, updateTitle] = useState("");
   let [est, updateEst] = useState(DefaultEst);
   let [studyTemplate, updateStudyTemplate] = useState("");
@@ -37,6 +37,18 @@ function App({ addSection }) {
     <>
       <Box style={{ padding: 20 }}>
         <Header pad="xsmall" align="baseline" style={{ marginBottom: 40 }}>
+          <Box style={{ width: 60 }} align="center">
+            <Button icon={<FormPrevious />} onClick={ () => loadPrevDay() } />
+          </Box>
+          <Box style={{ width: 40 }} align="center">
+            <Button icon={<Disc />} onClick={ () => loadToday() } />
+          </Box>
+          <Box style={{ maxWidth: 150, minWidth: 150 }} align="center">
+            <Text size="large">{todayCaption}</Text>
+          </Box>
+          <Box style={{ width: 60 }} align="center">
+            <Button icon={<FormNext />} onClick={ () => loadNextDay() }/>
+          </Box>
           <Box basis="full">
             <TextInput
               value={title}
@@ -67,7 +79,7 @@ function App({ addSection }) {
               onChange={onChangeStudyTemplate}
             />
           </Box>
-          <Box basis="1/4">
+          <Box>
             <Select
               options={[5, 10, 15, 20, 25, 30, 40, 50, 60, 70, 90, 100]}
               value={est}
@@ -96,8 +108,13 @@ function App({ addSection }) {
 }
 
 export default connect(
-  () => {},
+  (state) => ({ 
+    todayCaption: state.todayCaption,
+  }),
   dispatch => ({
-    addSection: (title, est) => dispatch(addSection(title, est))
+    addSection: (title, est) => dispatch(addSection(title, est)),
+    loadToday: () => dispatch(loadToday()),
+    loadPrevDay: () => dispatch(loadPrevDay()),
+    loadNextDay: () => dispatch(loadNextDay()),
   })
 )(App);

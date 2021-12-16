@@ -3,7 +3,7 @@ import { Table } from "./Table";
 import Section from "./Section";
 import { connect } from "react-redux";
 import { timeFormatter } from "./utils";
-import { Text } from "grommet";
+import { Button, Text } from "grommet";
 
 function SectionList({ sectionList }) {
   const allTime = (key, adjust = 1) =>
@@ -17,7 +17,7 @@ function SectionList({ sectionList }) {
       <Table>
         <thead>
           <tr>
-            <th className="center" colSpan="2" width="150">
+            <th className="center" colSpan="3" width="230">
               시간
             </th>
             <th className="underline" rowSpan="2">
@@ -28,8 +28,9 @@ function SectionList({ sectionList }) {
             </th>
           </tr>
           <tr className="underline">
-            <th className="center">계획</th>
-            <th className="center">공부 시간</th>
+            <th className="center">예상</th>
+            <th className="center">학습</th>
+            <th className="center">완료</th>
           </tr>
         </thead>
         <tbody>
@@ -45,7 +46,8 @@ function SectionList({ sectionList }) {
             <th className="center">
               <Text>{allTime("act")}</Text>
             </th>
-            <th className="underline" colSpan="2" />
+            <th className="underline" colSpan="3">
+            </th>
           </tr>
         </thead>
       </Table>

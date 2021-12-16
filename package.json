@@ -5,6 +5,7 @@
   "keywords": [],
   "main": "index.js",
   "dependencies": {
+    "date-fns": "^2.27.0",
     "express": "^4.17.1",
     "grommet": "2.14.0",
     "grommet-icons": "4.4.0",
